@@ -1,0 +1,162 @@
+﻿<html>
+<head>
+ <link rel="stylesheet" type="text/css" href="style/style.css">
+ 
+ <script>
+function ConfirmDelete(id) {
+    var txt;
+    var r = confirm("Are you sure delete user id "+ id + "?!");
+    if (r == true) {
+            location.href = "index.php?delete="+id;
+        txt = "You pressed OK!";
+    } else {
+        txt = "You pressed Cancel!";
+    }
+    document.getElementById("demo").innerHTML = txt;
+}
+</script>
+</head>
+
+<body>
+<div id="header">
+
+  <h3 id="TextAdmin">Global Account System (Admin Panel v0.0.1 Alpha)</h3>
+<h3 id="TextAdmin"> <a href="index.php?logout=1>">Logout</a> </h3>
+</div>
+<div id="Center" >
+  <h3 id="TextAdmin">Accounts Manager</h3>
+  <div id="Accounnts" >
+<table>
+<tr>
+<th>
+First Name
+</th>
+<th>
+Last Name
+</th>
+<th>
+Username
+</th>
+<th>
+Age
+</th>
+<th>
+Country
+</th>
+<th>
+Email
+</th>
+<th>
+Ban/unban (FROM DEVICE)
+</th>
+<th>
+Ban/unban (FROM IP)
+</th>
+<th>
+Change Password
+</th>
+<th>
+Update Information
+</th>
+<th>
+Delete Account
+</th>
+</tr>
+
+<?php
+while($Account = mysql_fetch_array($getRecords)){
+?>
+<tr>
+<td>
+<?php echo $Account["firstname"] ;?>
+</td>
+<td>
+<?php echo $Account["lastname"] ;?>
+</td>
+<td>
+<?php echo $Account["username"] ;?>
+</td>
+<td>
+<?php echo $Account["age"] ;?>
+</td>
+<td>
+<?php echo $Account["country"] ;?>
+</td>
+<td>
+<?php echo $Account["email"] ;?>
+</td>
+<td>
+<?php
+if($Account["banned"] == 1 && $Account["macAddresses"] != "1"){
+
+?>
+Banned(<a href="index.php?unbanned=<?php echo $Account["id"] ?>">Unban</a>)
+
+<?php
+}else if($Account["banned"] == 0 && $Account["macAddresses"] != "1"){
+
+
+?>
+Active(<a href="index.php?banned=<?php echo $Account["id"] ?>">Ban</a>)
+<?php
+}else{
+
+?>
+Not Use Standalone platforms
+
+<?php
+}
+?>
+
+</td>
+<td>
+<?php
+if($Account["banned"] == 1){
+
+?>
+Banned(<a href="index.php?unBannedFromIP=<?php echo $Account["id"] ?>">Unban</a>)
+
+<?php
+}else if($Account["banned"] == 0){
+
+
+?>
+Active(<a href="index.php?BannedFromIP=<?php echo $Account["id"] ?>">Ban</a>)
+<?php
+}
+?>
+
+
+</td>
+
+<td>
+
+<a href="updateAccount.php?newPassword=<?php echo $Account["id"] ?>">Change!</a>
+
+</td>
+<td>
+
+<a href="updateAccount.php?updateInformation=<?php echo $Account["id"] ?>">Update!</a>
+
+</td>
+<td>
+
+<a onclick="ConfirmDelete(<?php echo $Account["id"];?>)" href="#">Delete!</a>
+
+</td>
+</tr>
+<?php
+}
+?>
+
+</table>
+  </div>
+</div>
+
+<div id="footer">
+  <h3 id="TextAdmin">Global Account System (GAS)</h3>
+
+</div>
+</body>
+
+</html>

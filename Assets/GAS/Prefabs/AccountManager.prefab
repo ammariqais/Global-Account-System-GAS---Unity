@@ -1,0 +1,154 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &181336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 477272}
+  - component: {fileID: 11408360}
+  - component: {fileID: 11453954}
+  - component: {fileID: 11471342}
+  - component: {fileID: 11475740}
+  - component: {fileID: 11468882}
+  - component: {fileID: 11465826}
+  m_Layer: 0
+  m_Name: AccountManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &477272
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181336}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 380.93552, y: 200.89711, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11408360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13772cf110055074cacd39d3eb5ba893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RegisterCanvas: {fileID: 0}
+  LoginCanvas: {fileID: 0}
+  ForgetCanvas: {fileID: 0}
+  ResetCanvas: {fileID: 0}
+  ActiveCanvas: {fileID: 0}
+--- !u!114 &11453954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770b7e99937ad3f448f3a55fa5a4f932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstName: {fileID: 0}
+  lastName: {fileID: 0}
+  Age: {fileID: 0}
+  Country: {fileID: 0}
+  userName: {fileID: 0}
+  Email: {fileID: 0}
+  Password: {fileID: 0}
+  WarningMSG: {fileID: 0}
+  RegisterUrl: http://localhost:8080/gas_php/register.php
+  checkBannedUrl: http://localhost:8080/gas_php/checkbanned.php
+  securePassword: fddskdrfnjwdwsxdefrjrfed
+  minAge: 18
+  maxAge: 20
+  minPassword: 6
+  nameRequierd: 1
+  ageRequierd: 1
+  countryRequierd: 1
+  ActiveFromEmail: 1
+  MultiAccounts: 1
+--- !u!114 &11471342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7acddf3917a1a3544a55540a4bb7686d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userName: {fileID: 0}
+  passwordName: {fileID: 0}
+  LoginUrl: http://localhost:8080/gas_php/login.php
+  checkBannedUrl: http://localhost:8080/gas_php/checkbanned.php
+  SecureKey: fddskdrfnjwdwsxdefrjrfed
+  WarningMsg: {fileID: 0}
+--- !u!114 &11475740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c705a83dfc94a4d8206e3615bf8cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UrlSendCode: http://localhost:8080/gas_php/sendcode.php
+  email: {fileID: 0}
+  WarningMsg: {fileID: 0}
+  securePassword: fddskdrfnjwdwsxdefrjrfed
+--- !u!114 &11468882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0c90708868d3624b9ac87d1333f166a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Code: {fileID: 0}
+  Password: {fileID: 0}
+  ResetUrl: http://localhost:8080/gas_php/resetpassword.php
+  WarningMsg: {fileID: 0}
+  securePassword: fddskdrfnjwdwsxdefrjrfed
+--- !u!114 &11465826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206812ebb3a2f61468c230e3b14d63fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Code: {fileID: 0}
+  WarningMSG: {fileID: 0}
+  activeURL: http://localhost:8080/gas_php/activeaccount.php
+  resendURL: http://localhost:8080/gas_php/resendactive.php
+  securePassword: fddskdrfnjwdwsxdefrjrfed

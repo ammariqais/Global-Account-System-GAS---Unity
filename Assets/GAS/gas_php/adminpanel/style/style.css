@@ -1,0 +1,268 @@
+#LoginForm{
+	position:relative;
+	width:40%;
+	height:30%;
+	left:30%;
+	top:1%;
+	background-color:rgba(57,57,57,1);
+	border-width:0px;
+	border-style:solid;
+	border-radius:30px;
+    box-shadow: 0 0 0pt 10pt rgba(109,219,235,0.5);
+
+}
+
+#UpdateForm{
+	position:relative;
+	width:40%;
+	height:80%;
+	left:30%;
+	top:1%;
+	background-color:rgba(57,57,57,1);
+	border-width:0px;
+	border-style:solid;
+	border-radius:30px;
+    box-shadow: 0 0 0pt 10pt rgba(109,219,235,0.5);
+
+}
+
+body{
+	background-color:rgba(238,238,238,1);
+
+}
+
+#UserText{
+float:left;
+width:90%;
+height:15%;
+margin-left:5%;
+margin-right:5%;
+margin-top:0.5%;
+margin-bottom:1%;
+	border-width:0px;
+	border-style:solid;
+	border-radius:30px;
+    box-shadow: 0 0 0pt 3pt rgba(255,0,0,0.2);
+		font-size:20px;
+
+}
+#PassText{
+float:left;
+width:90%;
+height:15%;
+
+margin-left:5%;
+margin-right:5%;
+margin-top:1%;
+margin-bottom:1%;
+	border-width:0px;
+	border-style:solid;
+	border-radius:30px;
+    box-shadow: 0 0 0pt 3pt rgba(255,0,0,0.2);
+		font-size:20px;
+}
+
+#UpdateTextBox{
+float:left;
+width:90%;
+height:7%;
+
+margin-left:5%;
+margin-right:5%;
+margin-top:0%;
+margin-bottom:0%;
+	border-width:0px;
+	border-style:solid;
+	border-radius:30px;
+    box-shadow: 0 0 0pt 3pt rgba(255,0,0,0.2);
+		font-size:20px;
+}
+
+#loginBtn{
+float:left;
+width:40%;
+height:15%;
+
+margin-left:30%;
+margin-right:5%;
+margin-top:1%;
+margin-bottom:1%;
+	border-width:0px;
+	border-style:solid;
+	border-radius:30px;
+    box-shadow: 0 0 0pt 3pt rgba(255,0,0,0.2);
+	font-size:14px;
+		background-color:rgba(228,252,254,0.8);
+
+}
+
+#updateBtn{
+float:left;
+width:40%;
+height:8%;
+
+margin-left:30%;
+margin-right:5%;
+margin-top:3%;
+margin-bottom:1%;
+	border-width:0px;
+	border-style:solid;
+	border-radius:30px;
+    box-shadow: 0 0 0pt 3pt rgba(255,0,0,0.2);
+	font-size:14px;
+		background-color:rgba(228,252,254,0.8);
+
+}
+
+
+#LabelPass{
+float:left;
+width:90%;
+height:15%;
+
+margin-left:5%;
+margin-right:5%;
+margin-top:1%;
+margin-bottom:1%;
+}
+
+#LabelUpdate{
+float:left;
+width:90%;
+height:5%;
+
+margin-left:5%;
+margin-right:5%;
+margin-top:2%;
+margin-bottom:2%;
+}
+
+
+#LabelUser{
+float:left;
+width:90%;
+height:15%;
+
+margin-left:5%;
+margin-right:5%;
+margin-top:1%;
+
+}
+#Text{
+    text-align:center;
+	    margin:1%;
+		color:rgba(109,219,235,0.8);
+	}
+	
+	#TextMSG{
+    text-align:center;
+	    margin:1%;
+color:red;
+	}
+	
+	#MSG{
+width:90%;
+height:5%;
+margin-left:5%;
+margin-right:5%;
+margin-top:10%;
+color:red;
+
+}
+
+#TextAdmin{
+    text-align:center;
+	    margin-top:0%;
+color:white;
+}
+
+#header{
+	position:fixed;
+left:0px;
+top:0px;
+
+	background-color:black;
+	width:100%;
+	height:10%;
+	
+}
+
+#footer{
+	position:fixed;
+left:0px;
+top:95%;
+
+	background-color:black;
+	width:100%;
+	height:5%;
+	
+}
+
+#Center{
+left:0px;
+top:0px;
+margin-top:80px;
+margin-left:0px;
+	background-color:rgba(57,57,57,1);
+
+	width:100%;
+	height:80%;
+	
+}
+
+
+#Accounnts{
+left:0px;
+top:0px;
+margin-top:1px;
+margin-left:2px;
+margin-right:2px;
+    overflow: scroll;
+	background-color:rgba(255,255,255,0.9);
+
+	width:99.5%;
+	height:92%;
+	
+}
+
+th, td {
+    text-align:center;
+font-a
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table{
+	width:100%;
+}
+th{
+	background-color:rgba(55,185,219,1);
+}
+td{
+	background-color:rgba(55,185,219,0.1);
+}
+
+a:link {
+    color: rgba(55,186,219,1);
+}
+
+/* visited link */
+a:visited {
+    color: rgba(55,186,219,1);
+}
+
+/* mouse over link */
+a:hover {
+    color: rgba(55,186,219,1);
+}
+
+/* selected link */
+a:active {
+    color: rgba(55,186,219,1);
+}
+
+a{
+	text-decoration:none;
+}

@@ -1,0 +1,41 @@
+﻿<html>
+<head>
+ <link rel="stylesheet" type="text/css" href="style/style.css">
+</head>
+
+<body>
+
+<div id="UpdateForm">
+<form   method="post" action="updateAccount.php?changeInformation=<?php echo $_GET["updateInformation"];?>" >
+<div id="LabelUpdate">
+  <h3 id="Text">First Name :</h3>
+</div>
+<input  id="UpdateTextBox" type="text" name="firstname" value="<?php echo $fetchInformation["firstname"] ; ?>" placeholder="firstname..." /> 
+
+<div id="LabelUpdate">
+  <h3 id="Text">Last Name :</h3>
+</div>
+<input  id="UpdateTextBox" type="text" name="lastname" value="<?php echo $fetchInformation["lastname"] ; ?>" placeholder="lastname..." /> 
+
+<div id="LabelUpdate">
+  <h3 id="Text">Age :</h3>
+</div>
+<input  id="UpdateTextBox" type="text" name="age" value="<?php echo $fetchInformation["age"] ; ?>" placeholder="Age..." /> 
+
+<div id="LabelUpdate">
+  <h3 id="Text">Country :</h3>
+</div>
+<input  id="UpdateTextBox" type="text" name="country" value="<?php echo $fetchInformation["country"] ; ?>" placeholder="Country..." /> 
+
+
+<div id="LabelUpdate">
+  <h3 id="Text">Email :</h3>
+</div>
+<input  id="UpdateTextBox" type="text" name="email" value="<?php echo $fetchInformation["email"] ; ?>" placeholder="Email..." /> 
+<input  id="updateBtn" type="submit" value="Update" /> 
+
+</form>
+</div>
+</body>
+
+</html>

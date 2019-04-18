@@ -1,0 +1,27 @@
+﻿<html>
+<head>
+ <link rel="stylesheet" type="text/css" href="style/style.css">
+</head>
+
+<body>
+<div id="MSG">
+  <h3 id="TextMSG"><?php echo $MSG; ?></h3>
+</div>
+<div id="LoginForm">
+<form   method="post" action="login.php?check=1">
+<div id="LabelUser">
+  <h3 id="Text">Username :</h3>
+</div>
+ <input id="UserText" type="text" name="username" placeholder="Username..." />
+<div id="LabelPass">
+  <h3 id="Text">Password :</h3>
+</div>
+
+<input  id="PassText" type="password" name="password" placeholder="password..." /> 
+<input  id="loginBtn" type="submit" value="login" placeholder="password..." /> 
+
+</form>
+</div>
+</body>
+
+</html>
