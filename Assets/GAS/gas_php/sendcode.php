@@ -13,23 +13,39 @@ if(@$_GET["email"]){
 	if (!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
     die( "This email not vaild!");
 }
-$checkmail = mysql_query("SELECT * FROM users WHERE email='".$_GET['email']."'");
-$checkRecord = mysql_num_rows($checkmail);
+$checkmail = mysqli_query($connect, "SELECT * FROM users WHERE email='".$_GET['email']."'");
+if (!$checkmail) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+$checkRecord = mysqli_num_rows($checkmail);
 if($checkRecord > 0){
-	$getuserInformation = mysql_fetch_array($checkmail);
-	$checkForgetRecordForUser = mysql_query("SELECT * FROM forget_passwords where userid='".make_safe($getuserInformation["id"])."'");
-			$getInformation = mysql_fetch_array($checkForgetRecordForUser);
+	$getuserInformation = mysqli_fetch_array($checkmail);
+	$checkForgetRecordForUser = mysqli_query($connect, "SELECT * FROM forget_passwords where userid='".make_safe($getuserInformation["id"])."'");
+if (!$checkForgetRecordForUser) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+			$getInformation = mysqli_fetch_array($checkForgetRecordForUser);
 
-	$checkRecordForUser = mysql_num_rows($checkForgetRecordForUser);
+	$checkRecordForUser = mysqli_num_rows($checkForgetRecordForUser);
 		$code = rand(0000000000000000,9999999999999999);
 	if($checkRecordForUser > 0){
 		
 	
-	$updateCode = mysql_query("UPDATE forget_passwords SET code='".$code."' WHERE userid='".make_safe($getInformation["userid"])."'");
+	$updateCode = mysqli_query($connect, "UPDATE forget_passwords SET code='".$code."' WHERE userid='".make_safe($getInformation["userid"])."'");
+if (!$updateCode) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 
 
 	}else{
-		$insertRecord = mysql_query("INSERT INTO forget_passwords VALUES('".make_safe($getuserInformation["id"])."','".make_safe($code)."')");
+		$insertRecord = mysqli_query($connect, "INSERT INTO forget_passwords VALUES('".make_safe($getuserInformation["id"])."','".make_safe($code)."')");
+if (!$insertRecord) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 		
 	}
 	$sendMail = mail($_GET["email"], 'Reset the Password', $code);

@@ -15,11 +15,19 @@ die("The nickname most be bigger than 2 characters");
 }if (!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
     die( "This email not vaild!");
 }
-$checkmail = mysql_query("SELECT * FROM users WHERE email='".make_safe($_GET['email'])."'");
-$checknickname = mysql_query("SELECT * FROM users WHERE username='".make_safe($_GET['username'])."'");
+$checkmail = mysqli_query($connect, "SELECT * FROM users WHERE email='".make_safe($_GET['email'])."'");
+        if (!$checkmail) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+$checknickname = mysqli_query($connect, "SELECT * FROM users WHERE username='".make_safe($_GET['username'])."'");
+        if (!$checknickname) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 
-$getNumEmail = mysql_fetch_array($checkmail);
-$getNumNickname = mysql_fetch_array($checknickname);
+$getNumEmail = mysqli_fetch_array($checkmail);
+$getNumNickname = mysqli_fetch_array($checknickname);
 
 if($getNumEmail > 0 ){
 die("This Email Is Already used");
@@ -32,14 +40,27 @@ die("This NickName have WhiteSpace");
 		die("Wrong Age!!");
 	}
 if(@$_GET["activate"]){
-$register = mysql_query("INSERT INTO users(id,username,email,password,country,age,firstname,lastname,macAddresses,ip) VALUES('NULL','".make_safe($_GET['username'])."','".make_safe($_GET['email'])."','".md5(make_safe($_GET['password']))."','".make_safe($_GET["country"])."','".make_safe($_GET["age"])."','".make_safe($_GET["firstname"])."','".make_safe($_GET["lastname"])."','".make_safe($_GET["mac"])."','".make_safe($real_ip_adress)."')");
+$register = mysqli_query($connect, "INSERT INTO users(id,username,email,password,country,age,firstname,lastname,macAddresses,ip) VALUES(NULL,'".make_safe($_GET['username'])."','".make_safe($_GET['email'])."','".md5(make_safe($_GET['password']))."','".make_safe($_GET["country"])."','".make_safe($_GET["age"])."','".make_safe($_GET["firstname"])."','".make_safe($_GET["lastname"])."','".make_safe($_GET["mac"])."','".make_safe($real_ip_adress)."')");
+        if (!$register) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 if($register){
-$getId = mysql_query("SELECT * from users where username='".make_safe($_GET['username'])."'");
-$fetchID = mysql_fetch_array($getId);
+$getId = mysqli_query($connect, "SELECT * from users where username='".make_safe($_GET['username'])."'");
+        if (!$getId) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+$fetchID = mysqli_fetch_array($getId);
 $CreateSerial = rand(0000000000000000,9999999999999999);
-$insertIntoActivate = mysql_query("INSERT INTO activate(userid,serial) values('".make_safe($fetchID["id"])."','".make_safe($CreateSerial)."')");
+$insertIntoActivate = mysqli_query($connect, "INSERT INTO activate(userid,serial) values('".make_safe($fetchID["id"])."','".make_safe($CreateSerial)."')");
+        if (!$insertIntoActivate) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 if($insertIntoActivate){
 		$sendMail = mail($fetchID["email"], 'Active Acount', $CreateSerial);
+		error_log( "mails send", $fetchID["email"], 'Active Acount', $CreateSerial );
 		if($sendMail){
 			echo "1";
 		}else{
@@ -55,8 +76,11 @@ if($insertIntoActivate){
 echo 'There is a problem in the database, please try again later!' ;
 }
 }else{
-	$register = mysql_query("INSERT INTO users(id,username,email,password,country,age,firstname,lastname,active,macAddresses,ip) VALUES('NULL','".make_safe($_GET['username'])."','".make_safe($_GET['email'])."','".md5(make_safe($_GET['password']))."','".make_safe($_GET["country"])."','".make_safe($_GET["age"])."','".make_safe($_GET["firstname"])."','".make_safe($_GET["lastname"])."',1,'".make_safe($_GET["mac"])."','".make_safe($real_ip_adress)."')");
-	
+	$register = mysqli_query($connect, "INSERT INTO users(id,username,email,password,country,age,firstname,lastname,active,macAddresses,ip) VALUES(NULL,'".make_safe($_GET['username'])."','".make_safe($_GET['email'])."','".md5(make_safe($_GET['password']))."','".make_safe($_GET["country"])."','".make_safe($_GET["age"])."','".make_safe($_GET["firstname"])."','".make_safe($_GET["lastname"])."',1,'".make_safe($_GET["mac"])."','".make_safe($real_ip_adress)."')");
+	        if (!$register) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 
 if($register){
 echo "1" ;
