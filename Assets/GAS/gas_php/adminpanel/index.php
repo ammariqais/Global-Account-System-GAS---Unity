@@ -10,23 +10,47 @@ include('../secureFunction.php');
 
 if(@$_SESSION["loginGASADMIN"]){
 	if(@$_GET["banned"]){
-		$getuser = mysql_query("SELECT * from users where id='".$_GET["banned"]."'");
-		$fetchUSER = mysql_fetch_array($getuser);
-		$getAllusersinDevice = mysql_query("SELECT * FROM USERS WHERE macAddresses='".make_safe($fetchUSER["macAddresses"])."'");
-		while($bannedUser = mysql_fetch_array($getAllusersinDevice)){
-		$banUser = mysql_query("UPDATE users SET banned=1 WHERE id='".make_safe($bannedUser["id"])."'");
+		$getuser = mysqli_query($connect, "SELECT * from users where id='".$_GET["banned"]."'");
+        if (!$getuser) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+		$fetchUSER = mysqli_fetch_array($getuser);
+		$getAllusersinDevice = mysqli_query($connect, "SELECT * FROM users WHERE macAddresses='".make_safe($fetchUSER["macAddresses"])."'");
+        if (!$getAllusersinDevice) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+		while($bannedUser = mysqli_fetch_array($getAllusersinDevice)){
+		$banUser = mysqli_query($connect, "UPDATE users SET banned=1 WHERE id='".make_safe($bannedUser["id"])."'");
+        if (!$banUser) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 		}
 			
  echo "<meta http-equiv=\"refresh\" content=\"0;url=index.php\"></p>";
 
 		
 	}else if(@$_GET["unbanned"]){
-				$getuser = mysql_query("SELECT * from users where id='".$_GET["unbanned"]."'");
-		$fetchUSER = mysql_fetch_array($getuser);
-		$getAllusersinDevice = mysql_query("SELECT * FROM USERS WHERE macAddresses='".make_safe($fetchUSER["macAddresses"])."'");
-				while($unbannedUser = mysql_fetch_array($getAllusersinDevice)){
+				$getuser = mysqli_query($connect, "SELECT * from users where id='".$_GET["unbanned"]."'");
+        if (!$getuser) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+		$fetchUSER = mysqli_fetch_array($getuser);
+		$getAllusersinDevice = mysqli_query($connect, "SELECT * FROM users WHERE macAddresses='".make_safe($fetchUSER["macAddresses"])."'");
+        if (!$getAllusersinDevice) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+				while($unbannedUser = mysqli_fetch_array($getAllusersinDevice)){
 
-		$unbanUser = mysql_query("UPDATE users SET banned=0 WHERE id='".make_safe($unbannedUser["id"])."'");
+		$unbanUser = mysqli_query($connect, "UPDATE users SET banned=0 WHERE id='".make_safe($unbannedUser["id"])."'");
+        if (!$unbanUser) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 		}
 			
  echo "<meta http-equiv=\"refresh\" content=\"0;url=index.php\"></p>";
@@ -36,23 +60,47 @@ if(@$_SESSION["loginGASADMIN"]){
 	
 	
 	}elseif(@$_GET["BannedFromIP"]){
-				$getuser = mysql_query("SELECT * from users where id='".$_GET["BannedFromIP"]."'");
-		$fetchUSER = mysql_fetch_array($getuser);
-		$getAllusersinDevice = mysql_query("SELECT * FROM USERS WHERE ip='".make_safe($fetchUSER["ip"])."'");
-		while($bannedUser = mysql_fetch_array($getAllusersinDevice)){
-		$banUser = mysql_query("UPDATE users SET banned=1 WHERE id='".make_safe($bannedUser["id"])."'");
+				$getuser = mysqli_query($connect, "SELECT * from users where id='".$_GET["BannedFromIP"]."'");
+        if (!$getuser) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+		$fetchUSER = mysqli_fetch_array($getuser);
+		$getAllusersinDevice = mysqli_query($connect, "SELECT * FROM users WHERE ip='".make_safe($fetchUSER["ip"])."'");
+        if (!$getAllusersinDevice) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+		while($bannedUser = mysqli_fetch_array($getAllusersinDevice)){
+		$banUser = mysqli_query($connect, "UPDATE users SET banned=1 WHERE id='".make_safe($bannedUser["id"])."'");
+        if (!$banUser) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 		}
 			
  echo "<meta http-equiv=\"refresh\" content=\"0;url=index.php\"></p>";
 		
 		
 	}else if(@$_GET["unBannedFromIP"]){
-				$getuser = mysql_query("SELECT * from users where id='".$_GET["unBannedFromIP"]."'");
-		$fetchUSER = mysql_fetch_array($getuser);
-		$getAllusersinDevice = mysql_query("SELECT * FROM USERS WHERE ip='".make_safe($fetchUSER["ip"])."'");
-				while($unbannedUser = mysql_fetch_array($getAllusersinDevice)){
+				$getuser = mysqli_query($connect, "SELECT * from users where id='".$_GET["unBannedFromIP"]."'");
+        if (!$getuser) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+		$fetchUSER = mysqli_fetch_array($getuser);
+		$getAllusersinDevice = mysqli_query($connect, "SELECT * FROM users WHERE ip='".make_safe($fetchUSER["ip"])."'");
+        if (!$getAllusersinDevice) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+				while($unbannedUser = mysqli_fetch_array($getAllusersinDevice)){
 
-		$unbanUser = mysql_query("UPDATE users SET banned=0 WHERE id='".make_safe($unbannedUser["id"])."'");
+		$unbanUser = mysqli_query($connect, "UPDATE users SET banned=0 WHERE id='".make_safe($unbannedUser["id"])."'");
+        if (!$unbanUser) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 		}
 			
  echo "<meta http-equiv=\"refresh\" content=\"0;url=index.php\"></p>";
@@ -64,11 +112,13 @@ if(@$_SESSION["loginGASADMIN"]){
 	}
 	
 	elseif(@$_GET["delete"]){
-		$DeleteUser = mysql_query("DELETE from users WHERE id='".make_safe($_GET["delete"])."'");
+		$DeleteUser = mysqli_query($connect, "DELETE from users WHERE id='".make_safe($_GET["delete"])."'");
+        if (!$DeleteUser) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 		if($DeleteUser){
 			 echo "<meta http-equiv=\"refresh\" content=\"0;url=index.php\"></p>";
-
-			
 		}
 		
 	}elseif(@$_GET['logout']){
@@ -80,18 +130,16 @@ if(!isset($_SESSION['loginGASADMIN'])){
 }
 	
 	else{
-	$getRecords = mysql_query("SELECT * FROM users WHERE id");
+	$getRecords = mysqli_query($connect, "SELECT * FROM users WHERE id");
+        if (!$getRecords) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 		include('style/main.html');
 }
 
 }else{
  echo "<meta http-equiv=\"refresh\" content=\"0;url=login.php\"></p>";
-
 }
-
-
-
-
-
 
 ?>

@@ -9,10 +9,14 @@ include('../secureFunction.php');
 $MSG = '' ;
 
 if(@$_GET["check"]){
-$checkmail = mysql_query("SELECT * FROM admins WHERE username='".make_safe($_POST["username"])."' AND password='".make_safe($_POST["password"])."'");
+$checkmail = mysqli_query($connect, "SELECT * FROM admins WHERE username='".make_safe($_POST["username"])."' AND password='".make_safe($_POST["password"])."'");
+if (!$checkmail) {
+    printf("Error: %s\n", mysqli_error($connect));
+    exit();
+}
 
-$getInfo = mysql_fetch_array($checkmail);
-$getNumAccount = mysql_num_rows($checkmail);
+$getInfo = mysqli_fetch_array($checkmail);
+$getNumAccount = mysqli_num_rows($checkmail);
 
 if($getNumAccount > 0 ){
 
