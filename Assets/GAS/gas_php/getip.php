@@ -1,4 +1,7 @@
 <?php
+
+include("config.php");
+
 if (isset($_SERVER['HTTP_CLIENT_IP']))
 {
     $real_ip_adress = $_SERVER['HTTP_CLIENT_IP'];

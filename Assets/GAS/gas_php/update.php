@@ -12,7 +12,11 @@ if($SecureKey == @$_GET['secure']){
 if(@$_GET["changePassword"]){
 	if(@$_GET["id"] && @$_GET["newpassword"]){
 		
-		$update_password = mysql_query("UPDATE users SET password='".md5(make_safe($_GET["newpassword"]))."' WHERE id='".make_safe($_GET["id"])."'");
+		$update_password = mysqli_query($connect, "UPDATE users SET password='".md5(make_safe($_GET["newpassword"]))."' WHERE id='".make_safe($_GET["id"])."'");
+if (!$update_password) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 		if($update_password){
 			echo "1";
 		}
@@ -24,7 +28,11 @@ if(@$_GET["changePassword"]){
 			if (!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)) {
     die( "This email not vaild!");
 }
-		$update_information = mysql_query("UPDATE users SET firstname='".make_safe($_GET["firstname"])."' , lastname='".make_safe($_GET["lastname"])."' , age='".make_safe($_GET["age"])."' , email='".make_safe($_GET["email"])."' , country='".make_safe($_GET["country"])."' WHERE id='".make_safe($_GET["id"])."'");
+		$update_information = mysqli_query($connect, "UPDATE users SET firstname='".make_safe($_GET["firstname"])."' , lastname='".make_safe($_GET["lastname"])."' , age='".make_safe($_GET["age"])."' , email='".make_safe($_GET["email"])."' , country='".make_safe($_GET["country"])."' WHERE id='".make_safe($_GET["id"])."'");
+		if (!$update_information) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 if($update_information){
 			echo "1";
 		}

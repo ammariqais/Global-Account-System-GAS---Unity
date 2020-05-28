@@ -14,12 +14,15 @@ if($_GET['secureid'] != $SecureKey){
 die("Secured! File");
 }
 
-$checkMAC = mysql_query("SELECT * FROM users WHERE macAddresses='".make_safe($_GET['mac'])."'");
-
-$stuts = mysql_num_rows($checkMAC);
+$checkMAC = mysqli_query($connect, "SELECT * FROM users WHERE macAddresses='".make_safe($_GET['mac'])."'");
+        if (!$checkMAC) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+$stuts = mysqli_num_rows($checkMAC);
 
 if($stuts > 0 ){
-	while($allUsers = mysql_fetch_array($checkMAC)){
+	while($allUsers = mysqli_fetch_array($checkMAC)){
 	if($allUsers["banned"]== 1){
 die("2"); // if user is exist and he got banned
 }
@@ -31,11 +34,15 @@ echo "3"; // optional this check if you want disable user have multi account 3 m
 }
 
 }else if(@$_GET["ip"]){
-	$checkMAC = mysql_query("SELECT * FROM users WHERE ip='".make_safe($real_ip_adress)."'");
-$stuts = mysql_num_rows($checkMAC);
+	$checkMAC = mysqli_query($connect, "SELECT * FROM users WHERE ip='".make_safe($real_ip_adress)."'");
+        if (!$checkMAC) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+$stuts = mysqli_num_rows($checkMAC);
 
 if($stuts > 0 ){
-	while($allUsers = mysql_fetch_array($checkMAC)){
+	while($allUsers = mysqli_fetch_array($checkMAC)){
 	if($allUsers["banned"]== 1){
 die("2"); // if user is exist and he got banned
 }

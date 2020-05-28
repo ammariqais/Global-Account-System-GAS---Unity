@@ -47,12 +47,6 @@ public class RegisterSystem : MonoBehaviour {
 		GetLoginCanvas = gameObject.GetComponent<UiAccountManager>();
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
-
-
 	public void ShowNetworkInterfaces()
 	{
 		#if (UNITY_STANDALONE || UNITY_EDITOR_WIN || UNITY_EDITOR_OSX  ) && (!UNITY_WEBPLAYER && !UNITY_WEBGL && !UNITY_ANDROID && !UNITY_IOS)
@@ -95,7 +89,8 @@ public class RegisterSystem : MonoBehaviour {
 		WWW checkBanned = new WWW (checkBannedUrl + "?" + "mac=" + info.Trim() +"&secureid="+securePassword);
 		WarningMSG.text = "Check White User... ";
 		yield return checkBanned;
-		if (checkBanned.text.Trim () == "3" || (MultiAccounts && checkBanned.text.Trim () == "1")) {
+        string result = RemoveExceptNumber(checkBanned.text.Trim()); // remove weird char in our text
+        if (result == "3" || (MultiAccounts && result == "1")) {
 			if (nameRequierd && (firstName.text.Length < 1|| lastName.text.Length < 1)) {
 				WarningMSG.text = "first name and last name is reqiuerd!";
 			}else if(ageRequierd && (Age.text.Length < 1)){
@@ -123,11 +118,11 @@ public class RegisterSystem : MonoBehaviour {
 				}
 			}
 		} else {
-			if (checkBanned.text.Trim () == "1") {
+			if (result == "1") {
 
 				WarningMSG.text = "you have already account in this device"; 
 			} else {
-				if (checkBanned.text.Trim () == "2") {
+				if (result == "2") {
 					WarningMSG.text = "this Device is Banned";
 				} else {
 					WarningMSG.text = checkBanned.text;
@@ -205,8 +200,9 @@ public class RegisterSystem : MonoBehaviour {
 			#endif
 			WWW php_query = new WWW (sends);
 			yield return php_query;
-			if (php_query.text.Trim () == "1") {
+            string result = RemoveExceptNumber(php_query.text.Trim()); // remove weird char in our text
 
+            if (result == "1") {
 				GetLoginCanvas.ToggleCanvas ("login");
 			} else {
 				WarningMSG.text = php_query.text;
@@ -226,16 +222,28 @@ public class RegisterSystem : MonoBehaviour {
 			Debug.Log (sends);
 			WWW php_query = new WWW (sends);
 			yield return php_query;
-			if (php_query.text.Trim () == "1") {
+            string result = RemoveExceptNumber(php_query.text.Trim()); // remove weird char in our text
 
+            if (result == "1") {
 				GetLoginCanvas.ToggleCanvas ("login");
 			} else {
 				WarningMSG.text = php_query.text;
 				Debug.Log (php_query.text);
 			}
 		}
-
-
 	}
+
+
+    static string RemoveExceptNumber(string s)
+    {
+        string result = string.Empty;
+        foreach (var c in s)
+        {
+            int ascii = (int)c;
+            if ((ascii >= 48 && ascii <= 57))
+                result += c;
+        }
+        return result;
+    }
 
 }

@@ -21,20 +21,11 @@ public class LoginSystem : MonoBehaviour {
 		#if UNITY_STANDALONE || UNITY_EDITOR_WIN || UNITY_EDITOR_OSX
 		ShowNetworkInterfaces ();
 		#endif
-
 	}
 
+    public void Login() => StartCoroutine(Query_Account());
 
-
-	// Update is called once per frame
-	void Update () {
-
-	}
-
-	public void Login (){
-		StartCoroutine (Query_Account ());
-	}
-	public void ShowNetworkInterfaces()
+    public void ShowNetworkInterfaces()
 	{
 		#if (UNITY_STANDALONE || UNITY_EDITOR_WIN || UNITY_EDITOR_OSX ) && (!UNITY_WEBPLAYER && !UNITY_WEBGL && !UNITY_IOS && !UNITY_ANDROID)
 
@@ -58,8 +49,8 @@ public class LoginSystem : MonoBehaviour {
 
 		}
 		#endif
-
 	}
+
 	IEnumerator Query_Account (){
 		#if (UNITY_STANDALONE || UNITY_EDITOR_WIN || UNITY_EDITOR_OSX || UNITY_ANDROID ) && (!UNITY_WEBPLAYER && !UNITY_WEBGL && !UNITY_ANDROID && !UNITY_IOS)
 
@@ -75,15 +66,16 @@ public class LoginSystem : MonoBehaviour {
 
 		WarningMsg.text = "Check White User... ";
 		yield return checkBanned;
-		Debug.Log (checkBanned.text);
-		if (checkBanned.text.Trim () == "1" || checkBanned.text.Trim () == "3") {
-			WWW query = new WWW (LoginUrl + "?" + "username=" + userName.text + "&password=" + passwordName.text + "&secureid=" + SecureKey);
+		//Debug.Log (checkBanned.text);
+        string result = RemoveExceptNumber(checkBanned.text.Trim()); // remove weird char in our text
+        if (result == "1" || result == "3")
+        { // if (checkBanned.text.Trim () == "1" || checkBanned.text.Trim () == "3") {
+            WWW query = new WWW (LoginUrl + "?" + "username=" + userName.text + "&password=" + passwordName.text + "&secureid=" + SecureKey);
 			WarningMsg.text = "Please Wait ... ";
 			yield return query;
-			string[] split = query.text.Split (',');
-			if (split [0].Trim () == "1") {
-
-
+            string[] split = query.text.Split (',');
+			if (RemoveExceptNumber(split[0].Trim ()) == "1") {
+                
 				PlayerPrefs.SetInt ("userID", int.Parse (split [1].Trim ()));
 				PlayerPrefs.SetString ("firstname", split [2].Trim ());
 				PlayerPrefs.SetString ("lastname", split [3].Trim ());
@@ -96,26 +88,32 @@ public class LoginSystem : MonoBehaviour {
 				Application.LoadLevel (1);
 
 
-			} else if (split [0].Trim () == "2") {
+			} else if (RemoveExceptNumber(split [0].Trim ()) == "2") {
 				PlayerPrefs.SetString ("TempUser", userName.text.Trim ());
 				GetLoginCanvas.ToggleCanvas ("active");
 			} else {
-				WarningMsg.text = split [0];
-
-
+				WarningMsg.text = split [0];                
 			}
-		} else if (checkBanned.text.Trim () == "2") {
-
+		} else if (result == "2") {
 			WarningMsg.text = "BANNED";
-
-		} else if (checkBanned.text.Trim () == "3") {
+		} else if (result == "3") {
 			WarningMsg.text = "Please Fill All Field";
 		}
-
 		else {
 			WarningMsg.text = checkBanned.text;
 		}
-
 	}
+
+    static string RemoveExceptNumber(string s)
+    {
+        string result = string.Empty;
+        foreach (var c in s)
+        {
+            int ascii = (int)c;
+            if ((ascii >= 48 && ascii <= 57))
+                result += c;
+        }
+        return result;
+    }
 }
 

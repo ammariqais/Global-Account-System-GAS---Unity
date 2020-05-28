@@ -11,13 +11,25 @@ include("Key.php");
 
 if($SecureKey == @$_GET['secure']){
 if(@$_GET["code"] && @$_GET["password"]){
-	$CheckCode = mysql_query("SELECT userid FROM forget_passwords WHERE code='".make_safe($_GET["code"])."'");
-	$isExist = mysql_num_rows($CheckCode);
+	$CheckCode = mysqli_query($connect, "SELECT userid FROM forget_passwords WHERE code='".make_safe($_GET["code"])."'");
+if (!$CheckCode) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
+	$isExist = mysqli_num_rows($CheckCode);
 	if($isExist > 0){
-		$getAccountInformation = mysql_fetch_array($CheckCode);
-		$updatePassword = mysql_query("UPDATE users SET password='".md5(make_safe($_GET["password"]))."' WHERE id='".make_safe($getAccountInformation["userid"])."'");
+		$getAccountInformation = mysqli_fetch_array($CheckCode);
+		$updatePassword = mysqli_query($connect, "UPDATE users SET password='".md5(make_safe($_GET["password"]))."' WHERE id='".make_safe($getAccountInformation["userid"])."'");
+if (!$updatePassword) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 		if($updatePassword){
-					$deleteRecord = mysql_query("DELETE FROM forget_passwords WHERE userid='".$getAccountInformation["userid"]."'");
+					$deleteRecord = mysqli_query($connect, "DELETE FROM forget_passwords WHERE userid='".$getAccountInformation["userid"]."'");
+if (!$deleteRecord) {
+            printf("Error: %s\n", mysqli_error($connect));
+            exit();
+        }
 
 			if($deleteRecord){
 		
